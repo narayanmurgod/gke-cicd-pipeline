@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app1-deployments
+  name: my-deployment
 spec:
   replicas: 3
   selector:
@@ -17,12 +17,12 @@ spec:
           image: asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image
           ports:
             - containerPort: 8080
+---
 
-----
 apiVersion: v1
 kind: Service
 metadata:
-  name: app1-service
+  name: my-service
 spec:
   selector:
     app: my-app
