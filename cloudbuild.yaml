@@ -1,37 +1,32 @@
 steps:
-##- name: 'gcr.io/cloud-builders/docker'
-##  args: ['build', '-t', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image', './app1' ]
- ## id: 'Build Docker Image'
+# Build and push Docker images for app1
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image', './app1']
+  id: 'Build Docker Image for app1'
 
-  # images:
-  # - 'us-central1-docker.pkg.dev/<your_project_id>/gke-repo/quickstart-image'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image']
+  id: 'Push Docker Image for app1'
 
-#- name: 'gcr.io/cloud-builders/docker'
- # args: ['push', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image' ]
- # id: 'Push Docker Image'
+# Build and push Docker images for app2
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app2-image', './app2']
+  id: 'Build Docker Image for app2'
 
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['build', '-t', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app2-image', './app2' ]
- # id: 'Build Docker Image2'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app2-image']
+  id: 'Push Docker Image for app2'
 
-  # images:
-  # - 'us-central1-docker.pkg.dev/<your_project_id>/gke-repo/quickstart-image'
-
-#- name: 'gcr.io/cloud-builders/docker'
- # args: ['push', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app2-image' ]
- # id: 'Push Docker Image2'
-
-
+# Deploy using Google Cloud SDK
 - name: 'google/cloud-sdk:latest'
   entrypoint: 'sh'
   args:
-  - -xe
-  - -c
-  - |
-    gcloud deploy apply --file deploy/pipeline.yaml --region=asia-south1 --project=cts05-murgod
-    gcloud deploy apply --file deploy/dev.yaml --region=asia-south1 --project=cts05-murgod
-    gcloud deploy releases create 'app-release-${SHORT_SHA}' --region=asia-south1 --delivery-pipeline=gke-cicd-pipeline --project=cts05-murgod --skaffold-file=skaffold.yaml
-
+    - -xe
+    - -c
+    - |
+      gcloud deploy apply --file deploy/pipeline.yaml --region=asia-south1 --project=cts05-murgod
+      gcloud deploy apply --file deploy/dev.yaml --region=asia-south1 --project=cts05-murgod
+      gcloud deploy releases create 'app-release-${SHORT_SHA}' --region=asia-south1 --delivery-pipeline=gke-cicd-pipeline --project=cts05-murgod --skaffold-file=skaffold.yaml
 
 options:
   logging: CLOUD_LOGGING_ONLY
