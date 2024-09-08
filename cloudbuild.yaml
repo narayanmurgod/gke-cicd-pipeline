@@ -28,9 +28,9 @@ steps:
   - -xe
   - -c
   - |
-    gcloud deploy apply --file deploy/pipeline.yaml --region=aisa-south1
-    gcloud deploy apply --file deploy/dev.yaml --region=aisa-south1
-    gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=gke-cicd-pipeline --region=aisa-south1 --skaffold-file=skaffold.yaml
+    gcloud deploy apply --file deploy/pipeline.yaml --region=aisa-south1 --project=cts05-murgod
+    gcloud deploy apply --file deploy/dev.yaml --region=aisa-south1 --project=cts05-murgod
+    gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=gke-cicd-pipeline --region=aisa-south1 --project=cts05-murgod --skaffold-file=skaffold.yaml
 
 
 options:
