@@ -1,4 +1,4 @@
-##steps:
+steps:
 ##- name: 'gcr.io/cloud-builders/docker'
 ##  args: ['build', '-t', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image', './app1' ]
  ## id: 'Build Docker Image'
