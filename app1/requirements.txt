@@ -1,3 +1,5 @@
-flask
-tabulate
-google-cloud-logging
+Flask==2.3.4
+Flask-SQLAlchemy==3.0.3
+Flask-JWT-Extended==4.6.0
+Flask-WTF==1.1.1
+WTForms==3.0.1

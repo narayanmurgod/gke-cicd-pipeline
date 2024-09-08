@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-container
-          image: asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image
+          image: asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/complex-app
           ports:
             - containerPort: 8080
 ---
