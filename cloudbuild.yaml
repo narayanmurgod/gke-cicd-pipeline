@@ -26,6 +26,7 @@ steps:
     - |
       gcloud deploy apply --file deploy/pipeline.yaml --region=asia-south1 --project=cts05-murgod
       gcloud deploy apply --file deploy/dev.yaml --region=asia-south1 --project=cts05-murgod
+      gcloud deploy apply --file deploy/prod.yaml --region=asia-south1 --project=cts05-murgod
       gcloud deploy releases create 'app-release-${SHORT_SHA}' --region=asia-south1 --delivery-pipeline=gke-cicd-pipeline --project=cts05-murgod --skaffold-file=skaffold.yaml
 
 options:
