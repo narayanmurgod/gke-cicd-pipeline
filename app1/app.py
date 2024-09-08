@@ -1,22 +1,13 @@
 from flask import Flask
 
+# Create a Flask application
 app = Flask(__name__)
 
+# Define a route for the root URL
 @app.route('/')
-def home():
-    return "Welcome to the Home Page!"
+def hello_world():
+    return 'Hello, World App 1!'
 
-@app.route('/about')
-def about():
-    return "This is the About Page."
-
-@app.route('/services')
-def services():
-    return "Here are our Services."
-
-@app.route('/contact')
-def contact():
-    return "Contact us at contact@example.com."
-
+# Run the Flask application if this file is executed directly
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080,host='0.0.0.0')
