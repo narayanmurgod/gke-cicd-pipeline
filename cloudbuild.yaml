@@ -8,15 +8,6 @@ steps:
   args: ['push', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image']
   id: 'Push Docker Image for app1'
 
-# Build and push Docker images for app2
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app2-image', './app2']
-  id: 'Build Docker Image for app2'
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app2-image']
-  id: 'Push Docker Image for app2'
-
 # Deploy using Google Cloud SDK
 - name: 'google/cloud-sdk:latest'
   entrypoint: 'sh'
