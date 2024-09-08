@@ -1,0 +1,37 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image', './app1' ]
+  id: 'Build Docker Image'
+
+  # images:
+  # - 'us-central1-docker.pkg.dev/<your_project_id>/gke-repo/quickstart-image'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app1-image' ]
+  id: 'Push Docker Image'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app2-image', './app2' ]
+  id: 'Build Docker Image2'
+
+  # images:
+  # - 'us-central1-docker.pkg.dev/<your_project_id>/gke-repo/quickstart-image'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'asia-south1-docker.pkg.dev/cts05-murgod/gke-cicd-repo/app2-image' ]
+  id: 'Push Docker Image2'
+
+
+- name: 'google/cloud-sdk:latest'
+  entrypoint: 'sh'
+  args:
+  - -xe
+  - -c
+  - |
+    gcloud deploy apply --file deploy/pipeline.yaml --region=aisa-south1
+    gcloud deploy apply --file deploy/dev.yaml --region=aisa-south1
+    gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=gke-cicd-pipeline --region=aisa-south1 --skaffold-file=skaffold.yaml
+
+
+options:
+  logging: CLOUD_LOGGING_ONLY
